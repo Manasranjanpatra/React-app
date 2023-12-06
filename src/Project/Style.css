@@ -1,0 +1,30 @@
+.container{
+    height:10vh;
+    width:100%;
+    background-color: rgb(97, 91, 91);
+    display:flex;
+    align-items: center;
+    justify-content: space-around;
+}
+nav ul {
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+li{
+    /* border-bottom: 2px solid grey; */
+    margin:0 1.3rem;
+    list-style: none;
+    cursor: pointer;
+}
+ul li a{
+text-decoration: none;
+color:#646CFF;
+font-size: 1.3rem;
+
+}
+.active{
+    color:white;
+    border-bottom:2px solid #646CFF;
+}
