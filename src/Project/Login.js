@@ -1,6 +1,12 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react';
+import {useNavigate} from 'react-router-dom'
+import { Appcontext } from './Auth';
+import {  toast } from 'react-toastify';
+
 
 const Login = () => {
+const {setJwt}=useContext(Appcontext);
+  
     const [user, setUser] = useState({
         name: "",
         email: "",
@@ -19,19 +25,41 @@ const Login = () => {
         });
 
     }
+    const navigate =useNavigate();
     const handelonSubmit = async (e) => {
         e.preventDefault();
-        console.log(user);
+
         try {
             const response = await fetch("http://localhost:4000/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
+                credentials: "include",
                 body: JSON.stringify(user),
 
             });
-            console.log(response);
+            
+            
+            
+            if(response.ok){
+                setUser({
+                    name: "",
+                    email: "",
+                    password: "",
+                    confirmpassword: ""
+                });
+               
+                navigate("/about");
+            }
+            else{
+                const rdata =await response.json();
+                
+                console.log(`res from backend   ${rdata.extradetails || rdata.message }`);
+        
+                window.alert(rdata.extradetails || rdata.message);
+                
+            }
         } catch (e) {
             console.log(e);
 
@@ -39,6 +67,7 @@ const Login = () => {
     }
     return (
         <div>
+            iam 
             <form method="POST" onSubmit={handelonSubmit}>
                 <input type="text" placeholder="name"
                     value={user.username}
